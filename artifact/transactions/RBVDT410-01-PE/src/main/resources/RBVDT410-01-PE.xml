@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<transaction xmlns="http://www.w3schools.com" transactionName="RBVDT410" application="RBVD" version="01" country="PE" language="ES">
+	<paramsIn>
+		<parameter order="1" name="quotationId" mandatory="1" type="String" size="20"/>
+		<parameter order="2" name="uploadEmployeesPayrollId" mandatory="1" type="String" size="50"/>
+	</paramsIn>
+	<paramsOut>
+		<dto order="1" name="data" mandatory="1" package="com.bbva.rbvd.dto.getpayroll.process.dto.PayrollDTO" artifactId="RBVDC410">
+			<parameter order="1" name="id" mandatory="1" type="String" size="50"/>
+			<dto order="2" name="status" mandatory="0" package="com.bbva.rbvd.dto.getpayroll.process.dto.StatusDTO" artifactId="RBVDC410">
+				<parameter order="1" name="id" mandatory="1" type="String" size="50"/>
+				<parameter order="2" name="name" mandatory="0" type="String" size="50"/>
+			</dto>
+		</dto>
+	</paramsOut>
+	<description>Transaction to get payroll upload process</description>
+</transaction>
