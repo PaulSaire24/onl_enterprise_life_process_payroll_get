@@ -1,40 +1,56 @@
 package com.bbva.rbvd.dto.getpayroll.process.dto;
 
-import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
-/**
- * The PayrollDTO class...
- */
-public class PayrollDTO implements Serializable  {
-	private static final long serialVersionUID = 2931699728946643245L;
+public class PayrollDTO {
 
-
-	private String id;
-	private StatusDTO status;
+    private IdentityDocumentDTO identityDocument;
+    private List<ContactDetailsDTO> contactDetails;
+    private Date hireDate;
+    private SalaryAmountDTO salaryAmount;
 
 
-	public String getId() {
-		return id;
-	}
+    public IdentityDocumentDTO getIdentityDocument() {
+        return identityDocument;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public void setIdentityDocument(IdentityDocumentDTO identityDocument) {
+        this.identityDocument = identityDocument;
+    }
 
-	public StatusDTO getStatus() {
-		return status;
-	}
+    public List<ContactDetailsDTO> getContactDetails() {
+        return contactDetails;
+    }
 
-	public void setStatus(StatusDTO status) {
-		this.status = status;
-	}
+    public void setContactDetails(List<ContactDetailsDTO> contactDetails) {
+        this.contactDetails = contactDetails;
+    }
+
+    public Date getHireDate() {
+        return hireDate;
+    }
+
+    public void setHireDate(Date hireDate) {
+        this.hireDate = hireDate;
+    }
+
+    public SalaryAmountDTO getSalaryAmount() {
+        return salaryAmount;
+    }
+
+    public void setSalaryAmount(SalaryAmountDTO salaryAmount) {
+        this.salaryAmount = salaryAmount;
+    }
 
 
-	@Override
-	public String toString() {
-		return "PayrollDTO{" +
-				"id='" + id + '\'' +
-				", status=" + status +
-				'}';
-	}
+    @Override
+    public String toString() {
+        return "PayrollDTO{" +
+                "identityDocument=" + identityDocument +
+                ", contactDetails=" + contactDetails +
+                ", hireDate=" + hireDate +
+                ", salaryAmount=" + salaryAmount +
+                '}';
+    }
 }
