@@ -1,5 +1,7 @@
 package com.bbva.rbvd;
 
+import com.bbva.rbvd.dto.payroll.process.EmployeePayrollResponseDTO;
+import com.bbva.rbvd.lib.r410.RBVDR410;
 import com.bbva.elara.domain.transaction.RequestHeaderParamsName;
 import com.bbva.elara.domain.transaction.Severity;
 import com.bbva.elara.domain.transaction.response.HttpResponseCode;
@@ -21,6 +23,7 @@ public class RBVDT41001PETransaction extends AbstractRBVDT41001PETransaction {
 	 */
 	@Override
 	public void execute() {
+		RBVDR410 rbvdR410 = this.getServiceLibrary(RBVDR410.class);
 
 		LOGGER.info("RBVDT41001PETransaction - execute() | START");
 
@@ -36,6 +39,9 @@ public class RBVDT41001PETransaction extends AbstractRBVDT41001PETransaction {
 		input.setSourceBranchCode(String.valueOf(this.getContext().getTransactionRequest().getHeader().getHeaderParameter(RequestHeaderParamsName.BRANCHCODE)));
 		input.setLastChangeBranchId(String.valueOf(this.getContext().getTransactionRequest().getHeader().getHeaderParameter(RequestHeaderParamsName.BRANCHCODE)));
 
+		EmployeePayrollResponseDTO response = rbvdR410.execute();
+
+		this.setData(response);
 
 		LOGGER.info("RBVDT41001PETransaction - execute() | input QuotationId: {}",input.getQuotationId());
 		LOGGER.info("RBVDT41001PETransaction - execute() | input EmployeesPayrollId: {}",input.getUploadEmployeesPayrollId());
