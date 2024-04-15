@@ -12,7 +12,5 @@
 	<version>0.1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>DTOS-onl_enterprise_life_process_payroll_get</name>
-	<modules>
-		<module>RBVDC410</module>
-	</modules>
+	<modules/>
 </project>
