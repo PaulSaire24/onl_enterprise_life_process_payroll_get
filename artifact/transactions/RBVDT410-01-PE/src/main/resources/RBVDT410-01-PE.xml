@@ -11,7 +11,7 @@
 				<parameter order="1" name="id" mandatory="1" type="String" size="50"/>
 				<parameter order="2" name="name" mandatory="0" type="String" size="50"/>
 			</dto>
-			<list order="2" name="payroll" mandatory="1">
+			<list order="3" name="payroll" mandatory="1">
 				<dto order="1" name="Type" mandatory="0" package="com.bbva.rbvd.dto.payroll.dto.PayrollEmployeeDTO" artifactId="RBVDC409">
 					<dto order="1" name="identityDocument" mandatory="1" package="com.bbva.rbvd.dto.payroll.dto.IdentityDocumentDTO" artifactId="RBVDC409">
 						<dto order="1" name="documentType" mandatory="1" package="com.bbva.rbvd.dto.payroll.dto.DescriptionDTO" artifactId="RBVDC409">
