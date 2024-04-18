@@ -9,6 +9,9 @@ import com.bbva.elara.test.osgi.DummyBundleContext;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Resource;
+
+import com.bbva.rbvd.dto.payroll.process.EmployeePayrollResponseDTO;
+import com.bbva.rbvd.lib.r410.RBVDR410;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,6 +22,8 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import static org.mockito.Mockito.when;
 
 /**
  * Test for transaction RBVDT41001PETransaction
@@ -41,6 +46,9 @@ public class RBVDT41001PETransactionTest {
 	@Mock
 	private TransactionRequest transactionRequest;
 
+	@Resource(name = "rbvdR410")
+	private RBVDR410 rbvdr410;
+
 	@Before
 	public void initializeClass() throws Exception {
 		// Initializing mocks
@@ -61,9 +69,8 @@ public class RBVDT41001PETransactionTest {
 
 	@Test
 	public void testNotNull(){
-	    // Example to Mock the Header
-		// Mockito.doReturn("ES").when(header).getHeaderParameter(RequestHeaderParamsName.COUNTRYCODE);
 		Assert.assertNotNull(this.transaction);
+		when(rbvdr410.execute()).thenReturn(new EmployeePayrollResponseDTO());
 		this.transaction.execute();
 	}
 
