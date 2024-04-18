@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<transaction xmlns="http://www.w3schools.com" transactionName="RBVDT410" application="RBVD" version="01" country="PE" language="ES">
+	<paramsIn>
+		<parameter order="1" name="quotationId" mandatory="1" type="String" size="20"/>
+		<parameter order="2" name="uploadEmployeesPayrollId" mandatory="1" type="String" size="50"/>
+	</paramsIn>
+	<paramsOut>
+		<dto order="1" name="data" mandatory="1" package="com.bbva.rbvd.dto.payroll.process.EmployeePayrollResponseDTO" artifactId="RBVDC409">
+			<parameter order="1" name="id" mandatory="1" type="String" size="50"/>
+			<dto order="2" name="status" mandatory="0" package="com.bbva.rbvd.dto.payroll.dto.DescriptionDTO" artifactId="RBVDC409">
+				<parameter order="1" name="id" mandatory="1" type="String" size="50"/>
+				<parameter order="2" name="name" mandatory="0" type="String" size="50"/>
+			</dto>
+			<list order="3" name="payroll" mandatory="1">
+				<dto order="1" name="Type" mandatory="0" package="com.bbva.rbvd.dto.payroll.dto.PayrollEmployeeDTO" artifactId="RBVDC409">
+					<dto order="1" name="identityDocument" mandatory="1" package="com.bbva.rbvd.dto.payroll.dto.IdentityDocumentDTO" artifactId="RBVDC409">
+						<dto order="1" name="documentType" mandatory="1" package="com.bbva.rbvd.dto.payroll.dto.DescriptionDTO" artifactId="RBVDC409">
+							<parameter order="1" name="id" mandatory="1" type="String" size="20"/>
+						</dto>
+						<parameter order="2" name="documentNumber" mandatory="1" type="String" size="20"/>
+					</dto>
+					<list order="2" name="contactDetails" mandatory="0">
+						<dto order="1" name="Type" mandatory="0" package="com.bbva.rbvd.dto.payroll.dto.ContactDetailsDTO" artifactId="RBVDC409">
+							<dto order="1" name="contact" mandatory="1" package="com.bbva.rbvd.dto.payroll.dto.ContactDTO" artifactId="RBVDC409">
+								<parameter order="1" name="contactDetailType" mandatory="1" type="String" size="10"/>
+								<parameter order="2" name="number" mandatory="0" type="String" size="40"/>
+								<parameter order="3" name="address" mandatory="0" type="String" size="60"/>
+							</dto>
+						</dto>
+					</list>
+					<parameter order="3" name="hireDate" mandatory="1" type="Date (YYYY-MM-DD)" size="0"/>
+					<dto order="4" name="salaryAmount" mandatory="0" package="com.bbva.rbvd.dto.payroll.dto.SalaryAmountDTO" artifactId="RBVDC409">
+						<parameter order="1" name="amount" mandatory="1" type="Double" size="18"/>
+						<parameter order="2" name="currency" mandatory="1" type="String" size="10"/>
+					</dto>
+					<parameter order="5" name="firstName" mandatory="1" type="String" size="60"/>
+					<parameter order="6" name="lastName" mandatory="1" type="String" size="60"/>
+					<parameter order="7" name="secondLastName" mandatory="0" type="String" size="60"/>
+					<parameter order="8" name="birthDate" mandatory="1" type="Date (YYYY-MM-DD)" size="0"/>
+					<dto order="9" name="gender" mandatory="1" package="com.bbva.rbvd.dto.payroll.dto.DescriptionDTO" artifactId="RBVDC409">
+						<parameter order="1" name="id" mandatory="1" type="String" size="10"/>
+					</dto>
+					<dto order="2" name="payRollStatus" mandatory="0" package="com.bbva.rbvd.dto.payroll.dto.DescriptionDTO" artifactId="RBVDC409">
+						<parameter order="1" name="id" mandatory="1" type="String" size="50"/>
+						<parameter order="2" name="name" mandatory="0" type="String" size="50"/>
+					</dto>
+				</dto>
+			</list>
+		</dto>
+	</paramsOut>
+	<description>Transaction to get payroll upload process</description>
+</transaction>

@@ -12,5 +12,8 @@
 	<version>0.1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>LIBRARIES-onl_enterprise_life_process_payroll_get</name>
-	<modules/>
+	<modules>
+		<module>RBVDR410</module>
+		<module>RBVDR410IMPL</module>
+	</modules>
 </project>
