@@ -1,7 +1,10 @@
 package com.bbva.rbvd;
 
 import com.bbva.elara.transaction.AbstractTransaction;
-import com.bbva.rbvd.dto.payroll.process.EmployeePayrollResponseDTO;
+import com.bbva.rbvd.dto.payroll.dto.DescriptionDTO;
+import com.bbva.rbvd.dto.payroll.dto.PayrollEmployeeDTO;
+
+import java.util.List;
 
 /**
  * In this class, the input and output data is defined automatically through the setters and getters.
@@ -29,7 +32,16 @@ public abstract class AbstractRBVDT41001PETransaction extends AbstractTransactio
 	/**
 	 * Set value for StatusPayrollDTO output parameter data
 	 */
-	protected void setData(final EmployeePayrollResponseDTO field){
-		this.addParameter("data", field);
+	//provide the setters for these threee parameters id, status, payroll
+	protected void setId(final String field){
+		this.addParameter("id", field);
 	}
+
+	protected void setStatus(final DescriptionDTO field){
+		this.addParameter("status", field);
+	}
+	protected void setPayroll(final List<PayrollEmployeeDTO> field){
+		this.addParameter("payroll", field);
+	}
+
 }

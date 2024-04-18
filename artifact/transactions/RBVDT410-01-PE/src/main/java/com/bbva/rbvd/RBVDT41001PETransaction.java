@@ -41,7 +41,9 @@ public class RBVDT41001PETransaction extends AbstractRBVDT41001PETransaction {
 
 		EmployeePayrollResponseDTO response = rbvdR410.execute();
 
-		this.setData(response);
+		this.setId(response.getId());
+		this.setStatus(response.getStatus());
+		this.setPayroll(response.getPayroll());
 
 		LOGGER.info("RBVDT41001PETransaction - execute() | input QuotationId: {}",input.getQuotationId());
 		LOGGER.info("RBVDT41001PETransaction - execute() | input EmployeesPayrollId: {}",input.getUploadEmployeesPayrollId());
