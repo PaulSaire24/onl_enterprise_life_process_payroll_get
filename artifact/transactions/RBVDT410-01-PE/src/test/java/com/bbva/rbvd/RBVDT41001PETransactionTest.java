@@ -1,6 +1,7 @@
 package com.bbva.rbvd;
 
 import com.bbva.elara.domain.transaction.Context;
+import com.bbva.elara.domain.transaction.Severity;
 import com.bbva.elara.domain.transaction.TransactionParameter;
 import com.bbva.elara.domain.transaction.request.TransactionRequest;
 import com.bbva.elara.domain.transaction.request.body.CommonRequestBody;
@@ -23,6 +24,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Matchers.anyObject;
 import static org.mockito.Mockito.when;
 
 /**
@@ -33,7 +37,8 @@ import static org.mockito.Mockito.when;
 		"classpath:/META-INF/spring/elara-test.xml",
 		"classpath:/META-INF/spring/RBVDT41001PETest.xml" })
 public class RBVDT41001PETransactionTest {
-
+	@Resource(name = "rbvdR410")
+	private RBVDR410 rbvdR410;
 	@Autowired
 	private RBVDT41001PETransaction transaction;
 
@@ -45,9 +50,6 @@ public class RBVDT41001PETransactionTest {
 
 	@Mock
 	private TransactionRequest transactionRequest;
-
-	@Resource(name = "rbvdR410")
-	private RBVDR410 rbvdr410;
 
 	@Before
 	public void initializeClass() throws Exception {
@@ -69,9 +71,12 @@ public class RBVDT41001PETransactionTest {
 
 	@Test
 	public void testNotNull(){
-		Assert.assertNotNull(this.transaction);
-		when(rbvdr410.execute()).thenReturn(new EmployeePayrollResponseDTO());
+		assertNotNull(this.transaction);
+
+		when(rbvdR410.execute(anyObject())).thenReturn(null);
 		this.transaction.execute();
+
+		assertEquals(Severity.ENR, this.transaction.getSeverity());
 	}
 
 	// Add Parameter to Transaction
