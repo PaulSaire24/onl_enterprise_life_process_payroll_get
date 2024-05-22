@@ -13,6 +13,6 @@ public interface RBVDR410 {
 	 *
 	 * @return
 	 */
-	EmployeePayrollResponseDTO execute(EmployeePayrollFilterDTO input);
+	EmployeePayrollResponseDTO executeGetPayroll(EmployeePayrollFilterDTO input);
 
 }
