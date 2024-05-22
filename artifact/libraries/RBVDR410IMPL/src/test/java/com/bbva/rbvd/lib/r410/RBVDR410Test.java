@@ -15,6 +15,7 @@ import org.mockito.*;
 import org.mockito.runners.MockitoJUnitRunner;
 
 
+import java.sql.Timestamp;
 import java.util.*;
 
 import static org.mockito.Matchers.*;
@@ -64,11 +65,12 @@ public class RBVDR410Test {
 	private List<Map<String, Object>> createPayroll() {
 		List<Map<String, Object>> listPayroll = new ArrayList<>();
 		Map<String, Object> mapPayroll = new HashMap<>();
+		long currentTimeMillis = System.currentTimeMillis();
 		mapPayroll.put(ConstantsUtils.InsurancePayrollEmployeeDetailHeaders.EMPLOYEE_FIRST_NAME, "Alvin ");
 		mapPayroll.put(ConstantsUtils.InsurancePayrollEmployeeDetailHeaders.EMPLOYEE_SECOND_LAST_NAME, "Arteta");
 		mapPayroll.put(ConstantsUtils.InsurancePayrollEmployeeDetailHeaders.EMPLOYEE_FIRST_LAST_NAME, "Quispe");
 		mapPayroll.put(ConstantsUtils.InsurancePayrollEmployeeDetailHeaders.EMPLOYEE_GENDER_TYPE, "M");
-		mapPayroll.put(ConstantsUtils.InsurancePayrollEmployeeDetailHeaders.EMPLOYEE_BIRTH_DATE, "03/11/1996");
+		mapPayroll.put(ConstantsUtils.InsurancePayrollEmployeeDetailHeaders.EMPLOYEE_BIRTH_DATE, new Timestamp(currentTimeMillis));
 		mapPayroll.put("EMPLOYEE_EMAIL_NAME", "alvinarteta@gmail.com");
 		mapPayroll.put("EMPLOYEE_CELLPHONE_NUMBER_ID", "938887465");
 		mapPayroll.put("EMPLOYEE_PERSONAL_ID", "76906337");

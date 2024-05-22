@@ -4,6 +4,8 @@ import com.bbva.rbvd.dto.payroll.dto.*;
 import com.bbva.rbvd.dto.payroll.utils.ConstantsUtils;
 import java.math.RoundingMode;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -18,8 +20,11 @@ public class EnterpriseInsurancePayrollBean {
 
         return payrollInfo.stream()
                 .map(payrolesInfo -> {
-                    String birthDateString = (String) payrolesInfo.get(ConstantsUtils.InsurancePayrollEmployeeDetailHeaders.EMPLOYEE_BIRTH_DATE);
-                    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                    Timestamp birthDateTimestamp = (Timestamp) payrolesInfo.get(ConstantsUtils.InsurancePayrollEmployeeDetailHeaders.EMPLOYEE_BIRTH_DATE);
+
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    String birthDateString = sdf.format(birthDateTimestamp);
+                    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                     LocalDate date = LocalDate.parse(birthDateString, dateFormatter);
 
                     String salaryString = (String) payrolesInfo.get("MONTH_PAYMENT_AMOUNT");
