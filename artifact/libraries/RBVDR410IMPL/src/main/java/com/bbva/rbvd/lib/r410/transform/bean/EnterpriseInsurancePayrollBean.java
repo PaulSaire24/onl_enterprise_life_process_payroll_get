@@ -1,11 +1,9 @@
 package com.bbva.rbvd.lib.r410.transform.bean;
-import com.bbva.elara.configuration.manager.application.ApplicationConfigurationService;
-import com.bbva.rbvd.dto.payroll.dao.PayrollDAO;
+
 import com.bbva.rbvd.dto.payroll.dto.*;
 import com.bbva.rbvd.dto.payroll.utils.ConstantsUtils;
 import java.math.RoundingMode;
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;

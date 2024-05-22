@@ -50,7 +50,7 @@ public class RBVDR410Test {
 		List<Map<String, Object>> listPlan = createPayroll();
 		when(rbvdR414.executeQueryForRowListSelection(anyString(), anyMap()))
 				.thenReturn(listPlan);
-		EmployeePayrollResponseDTO response = rbvdR410Impl.execute(requestInput);
+		EmployeePayrollResponseDTO response = rbvdR410Impl.executeGetPayroll(requestInput);
 
 
 	}

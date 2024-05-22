@@ -4,7 +4,6 @@ import com.bbva.rbvd.dto.payroll.dto.PayrollEmployeeDTO;
 import com.bbva.rbvd.dto.payroll.process.EmployeePayrollFilterDTO;
 import com.bbva.rbvd.dto.payroll.process.EmployeePayrollResponseDTO;
 import com.bbva.rbvd.dto.payroll.rimac.PayloadInsurancePayrollRequestBO;
-import com.bbva.rbvd.dto.payroll.rimac.PayloadInsurancePayrollResponseBO;
 import com.bbva.rbvd.lib.r410.dao.impl.EnterpriseInsuranceGetPayrollDAOImpl;
 import com.bbva.rbvd.lib.r410.transform.bean.EnterpriseInsurancePayrollBean;
 import com.bbva.rbvd.lib.r410.transform.map.EnterpriseInsurancePayrollMap;

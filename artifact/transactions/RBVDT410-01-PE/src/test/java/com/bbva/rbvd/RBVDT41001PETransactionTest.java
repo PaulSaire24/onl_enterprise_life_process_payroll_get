@@ -73,7 +73,7 @@ public class RBVDT41001PETransactionTest {
 	public void testNotNull(){
 		assertNotNull(this.transaction);
 
-		when(rbvdR410.execute(anyObject())).thenReturn(null);
+		when(rbvdR410.executeGetPayroll(anyObject())).thenReturn(null);
 		this.transaction.execute();
 
 		assertEquals(Severity.ENR, this.transaction.getSeverity());
