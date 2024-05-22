@@ -42,7 +42,7 @@ public class RBVDT41001PETransaction extends AbstractRBVDT41001PETransaction {
 		input.setSourceBranchCode(String.valueOf(this.getContext().getTransactionRequest().getHeader().getHeaderParameter(RequestHeaderParamsName.BRANCHCODE)));
 		input.setLastChangeBranchId(String.valueOf(this.getContext().getTransactionRequest().getHeader().getHeaderParameter(RequestHeaderParamsName.BRANCHCODE)));
 		try {
-			EmployeePayrollResponseDTO response = rbvdR410.execute(input);
+			EmployeePayrollResponseDTO response = rbvdR410.executeGetPayroll(input);
 			if (nonNull(response)) {
 				LOGGER.info("RBVDT41001PETransaction - Response : {}", response.toString());
 				this.setId(response.getId());
