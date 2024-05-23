@@ -27,8 +27,8 @@ public class EnterpriseInsurancePayrollBean {
                     DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                     LocalDate date = LocalDate.parse(birthDateString, dateFormatter);
 
-                    String salaryString = (String) payrolesInfo.get("MONTH_PAYMENT_AMOUNT");
-                    double salary = convertToDoubleWithTwoDecimals(salaryString);
+                    BigDecimal salaryString = (BigDecimal) payrolesInfo.get("MONTH_PAYMENT_AMOUNT");
+                    double salary =salaryString.doubleValue();
 
                     PayrollEmployeeDTO payrollInformationDAO = new PayrollEmployeeDTO();
                     payrollInformationDAO.setFirstName((String) payrolesInfo.get(ConstantsUtils.InsurancePayrollEmployeeDetailHeaders.EMPLOYEE_FIRST_NAME));

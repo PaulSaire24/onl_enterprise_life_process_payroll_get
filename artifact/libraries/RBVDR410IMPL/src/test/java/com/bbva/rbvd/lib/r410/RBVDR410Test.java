@@ -15,6 +15,7 @@ import org.mockito.*;
 import org.mockito.runners.MockitoJUnitRunner;
 
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.*;
 
@@ -75,7 +76,7 @@ public class RBVDR410Test {
 		mapPayroll.put("EMPLOYEE_CELLPHONE_NUMBER_ID", "938887465");
 		mapPayroll.put("EMPLOYEE_PERSONAL_ID", "76906337");
 		mapPayroll.put("EMPLOYEE_PERSONAL_TYPE", "DNI");
-		mapPayroll.put("MONTH_PAYMENT_AMOUNT", "50000");
+		mapPayroll.put("MONTH_PAYMENT_AMOUNT", new BigDecimal(50000));
 		listPayroll.add(mapPayroll);
 		return listPayroll;
 	}
