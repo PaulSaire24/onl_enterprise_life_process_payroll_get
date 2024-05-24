@@ -52,7 +52,7 @@ public class EnterpriseInsurancePayrollBean {
                     if(payrolesInfo.get("MONTH_PAYMENT_AMOUNT")!=null) {
                     payrollInformationDAO.setSalaryAmount(generateSalaryAmount(salary));
                     }
-                    if(payrolesInfo.get("MONTH_PAYMENT_AMOUNT")!=null){
+                    if(payrolesInfo.get(ConstantsUtils.InsurancePayrollEmployeeDetailHeaders.EMPLOYEE_BIRTH_DATE)!=null){
                     payrollInformationDAO.setHireDate(Date.from(hireDateLocaldate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
                     } else{
                         payrollInformationDAO.setHireDate(new Date());
