@@ -21,11 +21,13 @@ public class EnterpriseInsurancePayrollBean {
         return payrollInfo.stream()
                 .map(payrolesInfo -> {
                     Timestamp birthDateTimestamp = (Timestamp) payrolesInfo.get(ConstantsUtils.InsurancePayrollEmployeeDetailHeaders.EMPLOYEE_BIRTH_DATE);
-
+                    Timestamp hireDateTimestamp = (Timestamp) payrolesInfo.get(ConstantsUtils.InsurancePayrollEmployeeDetailHeaders.EMPLOYEE_BIRTH_DATE);
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                     String birthDateString = sdf.format(birthDateTimestamp);
+                    String hireDateString = sdf.format(hireDateTimestamp);
                     DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                     LocalDate date = LocalDate.parse(birthDateString, dateFormatter);
+                    LocalDate hireDateLocaldate = LocalDate.parse(hireDateString, dateFormatter);
 
                     BigDecimal salaryString = (BigDecimal) payrolesInfo.get("MONTH_PAYMENT_AMOUNT");
                     double salary =salaryString.doubleValue();
@@ -50,11 +52,18 @@ public class EnterpriseInsurancePayrollBean {
                     if(payrolesInfo.get("MONTH_PAYMENT_AMOUNT")!=null) {
                     payrollInformationDAO.setSalaryAmount(generateSalaryAmount(salary));
                     }
+                    if(payrolesInfo.get("MONTH_PAYMENT_AMOUNT")!=null){
+                    payrollInformationDAO.setHireDate(Date.from(hireDateLocaldate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+                    } else{
+                        payrollInformationDAO.setHireDate(new Date());
+
+                    }
                     return payrollInformationDAO;
                 })
                 .collect(Collectors.toList());
 
     }
+
     public static double convertToDoubleWithTwoDecimals(String numberString) {
         BigDecimal bigDecimal = new BigDecimal(numberString);
         bigDecimal = bigDecimal.setScale(2, RoundingMode.HALF_UP);

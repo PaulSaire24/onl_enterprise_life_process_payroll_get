@@ -25,11 +25,15 @@ public class RBVDR410Impl extends RBVDR410Abstract {
 		LOGGER.info("*******RBVDR410Impl - executeGetPayroll START");
 		LOGGER.info("*******RBVDR410Impl - executeGetPayroll Input {}",input);
 		EnterpriseInsuranceGetPayrollDAOImpl enterpriseInsuranceGetPayrollDAO = new EnterpriseInsuranceGetPayrollDAOImpl(rbvdR414);
+
 		PayloadInsurancePayrollRequestBO payloadInsurancePayrollRequestBO = new PayloadInsurancePayrollRequestBO();
 		LOGGER.info("*******RBVDR410Impl - executeGetPayroll - payloadInsurancePayrollRequestBO : {}",payloadInsurancePayrollRequestBO);
 		Map<String, Object> argumentsForGetPayrollInfo = EnterpriseInsurancePayrollMap.createArgumentsForGetPayrollInfo(input.getUploadEmployeesPayrollId());
 		List<Map<String,Object>> payrollInfo = enterpriseInsuranceGetPayrollDAO.getInsurancePayroll(argumentsForGetPayrollInfo);
+
 		List<PayrollEmployeeDTO> payrollList =EnterpriseInsurancePayrollBean.getBeanInsurancePayrollDao(payrollInfo);
+		LOGGER.info("*******RBVDR410Impl - executeGetPayroll - payrollList : {}",payrollList);
+
 
 		EmployeePayrollResponseDTO output = generatePayroll(payrollList,input.getUploadEmployeesPayrollId());
 		LOGGER.info("*******RBVDR410Impl - executeGetPayroll Response {}",output);
