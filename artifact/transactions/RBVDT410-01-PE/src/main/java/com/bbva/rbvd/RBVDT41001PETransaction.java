@@ -10,17 +10,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-/**
- * Transaction to get payroll upload process
- *
- */
 public class RBVDT41001PETransaction extends AbstractRBVDT41001PETransaction {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(RBVDT41001PETransaction.class);
 
-	/**
-	 * The execute method...
-	 */
 	@Override
 	public void execute() {
 		RBVDR410 rbvdR410 = this.getServiceLibrary(RBVDR410.class);
@@ -39,7 +32,7 @@ public class RBVDT41001PETransaction extends AbstractRBVDT41001PETransaction {
 		input.setSourceBranchCode(String.valueOf(this.getContext().getTransactionRequest().getHeader().getHeaderParameter(RequestHeaderParamsName.BRANCHCODE)));
 		input.setLastChangeBranchId(String.valueOf(this.getContext().getTransactionRequest().getHeader().getHeaderParameter(RequestHeaderParamsName.BRANCHCODE)));
 
-		EmployeePayrollResponseDTO response = rbvdR410.execute();
+		EmployeePayrollResponseDTO response = rbvdR410.executeGetInformationPayroll(input);
 
 		this.setId(response.getId());
 		this.setStatus(response.getStatus());

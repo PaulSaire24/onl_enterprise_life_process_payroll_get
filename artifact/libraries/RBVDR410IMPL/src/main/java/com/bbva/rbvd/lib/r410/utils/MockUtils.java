@@ -1,4 +1,4 @@
-package com.bbva.rbvd.lib.r410.impl.utils;
+package com.bbva.rbvd.lib.r410.utils;
 
 import com.bbva.rbvd.dto.payroll.process.EmployeePayrollResponseDTO;
 import com.google.gson.Gson;
