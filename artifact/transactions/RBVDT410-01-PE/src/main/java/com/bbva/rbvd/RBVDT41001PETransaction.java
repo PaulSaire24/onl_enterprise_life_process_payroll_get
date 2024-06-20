@@ -23,32 +23,41 @@ public class RBVDT41001PETransaction extends AbstractRBVDT41001PETransaction {
 	 */
 	@Override
 	public void execute() {
-		RBVDR410 rbvdR410 = this.getServiceLibrary(RBVDR410.class);
+		RBVDR033 rbvdR033 = this.getServiceLibrary(RBVDR033.class);
+		LOGGER.info("Execution of RBVDT03301PETransaction");
+		LOGGER.info("Header traceId: {}", this.getRequestHeader().getHeaderParameter(RequestHeaderParamsName.REQUESTID));
+		PolicyDetailDTO validation = rbvdR033.executeGetInsurancePolicyDetail(this.getInsuranceContractId());
+		if (validation == null) {
+			setSeverity(Severity.ENR);
+		} else {
+			this.setId(validation.getId());
+			this.setPolicynumber(validation.getPolicyNumber());
+			this.setAlias(validation.getAlias());
+			this.setProducttype(validation.getProductType());
+			this.setProduct(validation.getProduct());
+			this.setInsuredamount(validation.getInsuredAmount());
+			this.setStatus(validation.getStatus());
+			this.setInsurancecompany(validation.getInsuranceCompany());
+			this.setPaymentconfiguration(validation.getPaymentConfiguration());
+			if (validation.getCancelationDate() != null) {
+				this.setCancelationdate(validation.getCancelationDate());
+			}
+			this.setValidityperiod(validation.getValidityPeriod());
+			this.setCurrentinstallment(validation.getCurrentInstallment());
+			this.setPremiumdebt(validation.getPremiumDebt());
+			this.setRenewalpolicy(validation.getRenewalPolicy());
+			this.setCertificatenumber(validation.getCertificateNumber());
+			this.setSubscriptiontype(validation.getSubscriptionType());
+			this.setBusinessagent(validation.getBusinessAgent());
+			this.setBank(validation.getBank());
+			if (validation.getExternalDocumentationSendDate() != null) {
+				this.setExternaldocumentationsenddate(validation.getExternalDocumentationSendDate());
+			}
+			this.setInstallmentPayment(validation.getInstallmentPayment());
 
-		LOGGER.info("RBVDT41001PETransaction - execute() | START");
+			LOGGER.info("Header traceId: {}", validation);
 
-		EmployeePayrollFilterDTO input = new EmployeePayrollFilterDTO();
-
-		input.setQuotationId(this.getQuotationid());
-		input.setUploadEmployeesPayrollId(this.getUploademployeespayrollid());
-
-		input.setSaleChannelId(String.valueOf(this.getContext().getTransactionRequest().getHeader().getHeaderParameter(RequestHeaderParamsName.CHANNELCODE)));
-		input.setCreationUser(String.valueOf(this.getContext().getTransactionRequest().getHeader().getHeaderParameter(RequestHeaderParamsName.USERCODE)));
-		input.setUserAudit(String.valueOf(this.getContext().getTransactionRequest().getHeader().getHeaderParameter(RequestHeaderParamsName.USERCODE)));
-		input.setTraceId(String.valueOf(this.getContext().getTransactionRequest().getHeader().getHeaderParameter(RequestHeaderParamsName.REQUESTID)));
-		input.setSourceBranchCode(String.valueOf(this.getContext().getTransactionRequest().getHeader().getHeaderParameter(RequestHeaderParamsName.BRANCHCODE)));
-		input.setLastChangeBranchId(String.valueOf(this.getContext().getTransactionRequest().getHeader().getHeaderParameter(RequestHeaderParamsName.BRANCHCODE)));
-
-		EmployeePayrollResponseDTO response = rbvdR410.execute();
-
-		this.setId(response.getId());
-		this.setStatus(response.getStatus());
-		this.setPayroll(response.getPayroll());
-
-		LOGGER.info("RBVDT41001PETransaction - execute() | input QuotationId: {}",input.getQuotationId());
-		LOGGER.info("RBVDT41001PETransaction - execute() | input EmployeesPayrollId: {}",input.getUploadEmployeesPayrollId());
-
-		this.setHttpResponseCode(HttpResponseCode.HTTP_CODE_200, Severity.OK);
+		}
 
 	}
 

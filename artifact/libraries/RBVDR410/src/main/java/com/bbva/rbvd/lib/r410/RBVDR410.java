@@ -12,6 +12,8 @@ public interface RBVDR410 {
 	 *
 	 * @return
 	 */
-	EmployeePayrollResponseDTO execute();
+	EmployeePayrollResponseDTO executeGetEmployeePayrool(String quotationId);
+
+
 
 }

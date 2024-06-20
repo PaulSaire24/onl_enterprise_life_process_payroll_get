@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.bbva.rbvd</groupId>
-		<artifactId>LIBRARIES-onl_enterprise_life_process_payroll_get</artifactId>
+		<artifactId>DTOS-onl_enterprise_life_process_payroll_get</artifactId>
 		<version>0.2.0-SNAPSHOT</version>
 	</parent>
-	<groupId>com.bbva.rbvd</groupId>
-	<artifactId>RBVDR410</artifactId>
-	<name>RBVDR410</name>
+	<groupId>com.bbva.rbvd.dto.py</groupId>
+	<artifactId>RBVDC413</artifactId>
 	<version>0.2.0-SNAPSHOT</version>
 	<packaging>bundle</packaging>
-	<description>lib to obtain payroll process</description>
+	<description>Payroll DTO</description>
 	<properties>
 		<osgi.version.manifest>0.0</osgi.version.manifest>
 	</properties>
 	<dependencies>
 		<dependency>
-			<groupId>com.bbva.rbvd.dto.py</groupId>
-			<artifactId>RBVDC413</artifactId>
-			<version>0.2.0-SNAPSHOT</version>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
 		</dependency>
 	</dependencies>
 	<build>
@@ -32,7 +31,7 @@
 				<configuration>
 					<instructions>
 						<Bundle-SymbolicName>${project.artifactId}-${project.version}</Bundle-SymbolicName>
-						<Bundle-Category>library</Bundle-Category>
+						<Bundle-Category>dto</Bundle-Category>
 						<Import-Package>
 							*;version="${osgi.version.manifest}"
 						</Import-Package>
@@ -46,7 +45,7 @@
 						<phase>install</phase>
 						<configuration>
 							<tasks>
-								<copy todir="${outputDirectoryLibraries}" file="./target/${project.artifactId}.jar"/>
+								<copy todir="${outputDirectoryDTOs}" file="./target/${project.artifactId}.jar" />
 							</tasks>
 						</configuration>
 						<goals>
