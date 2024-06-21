@@ -7,7 +7,6 @@ import com.bbva.elara.domain.transaction.request.body.CommonRequestBody;
 import com.bbva.elara.domain.transaction.request.header.CommonRequestHeader;
 import com.bbva.elara.test.osgi.DummyBundleContext;
 import java.util.ArrayList;
-import java.util.List;
 import javax.annotation.Resource;
 
 import com.bbva.rbvd.dto.payroll.process.EmployeePayrollResponseDTO;
@@ -17,17 +16,16 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+
+import static org.mockito.Matchers.anyObject;
 import static org.mockito.Mockito.when;
 
-/**
- * Test for transaction RBVDT41001PETransaction
- */
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
 		"classpath:/META-INF/spring/elara-test.xml",
@@ -42,12 +40,11 @@ public class RBVDT41001PETransactionTest {
 
 	@Mock
 	private CommonRequestHeader header;
+	@Resource(name = "rbvdR410")
+	private RBVDR410 rbvdr410;
 
 	@Mock
 	private TransactionRequest transactionRequest;
-
-	@Resource(name = "rbvdR410")
-	private RBVDR410 rbvdr410;
 
 	@Before
 	public void initializeClass() throws Exception {
@@ -70,7 +67,7 @@ public class RBVDT41001PETransactionTest {
 	@Test
 	public void testNotNull(){
 		Assert.assertNotNull(this.transaction);
-		when(rbvdr410.execute()).thenReturn(new EmployeePayrollResponseDTO());
+		when(rbvdr410.executeGetInformationPayroll(anyObject())).thenReturn(new EmployeePayrollResponseDTO());
 		this.transaction.execute();
 	}
 

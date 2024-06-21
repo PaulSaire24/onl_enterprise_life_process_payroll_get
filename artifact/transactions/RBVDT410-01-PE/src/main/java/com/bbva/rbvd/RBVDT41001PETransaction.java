@@ -34,13 +34,14 @@ public class RBVDT41001PETransaction extends AbstractRBVDT41001PETransaction {
 
 		EmployeePayrollResponseDTO response = rbvdR410.executeGetInformationPayroll(input);
 
-		this.setId(response.getId());
-		this.setStatus(response.getStatus());
-		this.setPayroll(response.getPayroll());
-
-		LOGGER.info("RBVDT41001PETransaction - execute() | input QuotationId: {}",input.getQuotationId());
-		LOGGER.info("RBVDT41001PETransaction - execute() | input EmployeesPayrollId: {}",input.getUploadEmployeesPayrollId());
-
+		if(response!=null && getAdviceList().size()==0){
+			this.setId(response.getId());
+			this.setStatus(response.getStatus());
+			this.setPayroll(response.getPayroll());
+			this.setHttpResponseCode(HttpResponseCode.HTTP_CODE_200,Severity.OK);
+		} else {
+			this.setSeverity(Severity.ENR);
+		}
 		this.setHttpResponseCode(HttpResponseCode.HTTP_CODE_200, Severity.OK);
 
 	}
