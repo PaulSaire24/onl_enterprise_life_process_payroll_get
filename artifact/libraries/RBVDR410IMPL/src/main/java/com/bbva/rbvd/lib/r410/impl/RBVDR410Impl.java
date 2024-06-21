@@ -31,7 +31,6 @@ public class RBVDR410Impl extends RBVDR410Abstract {
 			LOGGER.info("*** pisdR404 result query -> {}", result);
 			return MappeBean.mapResultPayroll(result);
 		}catch (ParseException e){
-			System.out.println(e.getMessage());
 			LOGGER.info("*** RBVDR410Impl  executeGetInformationPayroll with Exception -> {}", e.getMessage());
 			return null;
 		}

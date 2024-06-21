@@ -55,14 +55,12 @@ public class MappeBean {
         }
         response.setPayroll(listPayroll);
         LOGGER.info("*** RBVDR410Impl  mapResultPayroll -> {}",response);
-        System.out.println(response);
         return response;
     }
 
     private static List<ContactDetailsDTO> setContac(Object phondeId, Object email){
         List<ContactDetailsDTO> contactList =  new ArrayList<>();
         ContactDetailsDTO contactDetails =  new ContactDetailsDTO();
-        System.out.println(email);
         if(phondeId == null && email == null) return null;
         if (phondeId != null) {
             ContactDTO contact = new ContactDTO();
