@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bbva.rbvd.lib.r410.utils.Constants;
-import org.springframework.web.client.RestClientException;
 
 import java.text.ParseException;
 import java.util.HashMap;

@@ -69,13 +69,13 @@ public class RBVDR410Test {
 		input.setQuotationId("1243455540");
 		Map<String,Object> mapResult = new HashMap<>();
 		mapResult.put("PAYROLL_ID","12455");
-		mapResult.put("PAYROLL_PROCESSING_STATUS_TYPE","CR");
+		mapResult.put("MOVEMENT_STATUS","CR");
 		mapResult.put("EMPLOYEE_FIRST_NAME","PAUL");
 		mapResult.put("EMPLOYEE_FIRST_LAST_NAME","SAIRE");
 		mapResult.put("EMPLOYEE_SECOND_LAST_NAME","PAUCAR");
 		mapResult.put("EMPLOYEE_BIRTH_DATE","2024-11-12");
 		mapResult.put("EMPLOYEE_GENDER_TYPE","F");
-		mapResult.put("EMPLOYEE_STATUS","REG");
+		mapResult.put("EMPLOYEE_STATUS_ID","VAL");
 		mapResult.put("EMPLOYEE_PERSONAL_TYPE","L");
 		mapResult.put("EMPLOYEE_PERSONAL_ID","71960800");
 		mapResult.put("EMPLOYEE_EMAIL_NAME","psaire@gamil.com");
@@ -92,6 +92,10 @@ public class RBVDR410Test {
 
 		Assert.assertEquals(0, context.getAdviceList().size());
 		Assert.assertNotNull(resu);
+		Assert.assertEquals("12455",resu.getId());
+		Assert.assertEquals("CR",resu.getStatus().getId());
+
+
 	}
 	
 }
