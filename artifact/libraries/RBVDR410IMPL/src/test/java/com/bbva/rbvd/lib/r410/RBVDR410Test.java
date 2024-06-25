@@ -1,6 +1,5 @@
 package com.bbva.rbvd.lib.r410;
 
-import com.bbva.elara.configuration.manager.application.ApplicationConfigurationService;
 import com.bbva.elara.domain.transaction.Context;
 import com.bbva.elara.domain.transaction.ThreadContext;
 
@@ -23,9 +22,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.anyMap;
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 @ContextConfiguration(locations = {
@@ -42,9 +42,8 @@ public class RBVDR410Test {
 	private RBVDR410Impl rbvdR410;
 
 	@Mock
-	private ApplicationConfigurationService applicationConfigurationService;
-	@Mock
 	private PISDR404 pisdr404;
+
 
 	@Before
 	public void setUp() throws Exception {
@@ -90,12 +89,12 @@ public class RBVDR410Test {
 		when(this.pisdr404.executeGetListASingleRow(anyString(),anyMap())).thenReturn(listResult);
 		EmployeePayrollResponseDTO resu = rbvdR410.executeGetInformationPayroll(input);
 
-		Assert.assertEquals(0, context.getAdviceList().size());
+		assertEquals(0, context.getAdviceList().size());
 		Assert.assertNotNull(resu);
-		Assert.assertEquals("12455",resu.getId());
-		Assert.assertEquals("CR",resu.getStatus().getId());
-
-
+		assertEquals("12455",resu.getId());
+		assertEquals("CR",resu.getStatus().getId());
 	}
-	
+
+
+
 }
