@@ -1,5 +1,6 @@
 package com.bbva.rbvd.lib.r410;
 
+import com.bbva.elara.configuration.manager.application.ApplicationConfigurationService;
 import com.bbva.elara.domain.transaction.Context;
 import com.bbva.elara.domain.transaction.ThreadContext;
 
@@ -44,6 +45,8 @@ public class RBVDR410Test {
 	@Mock
 	private PISDR404 pisdr404;
 
+	@Mock
+	ApplicationConfigurationService applicationConfigurationService;
 
 	@Before
 	public void setUp() throws Exception {
@@ -87,6 +90,8 @@ public class RBVDR410Test {
 		listResult.add(mapResult);
 
 		when(this.pisdr404.executeGetListASingleRow(anyString(),anyMap())).thenReturn(listResult);
+		when(this.applicationConfigurationService.getProperty("GENDER_ID_F")).thenReturn("FEMALE");
+		when(this.applicationConfigurationService.getProperty("GENDER_ID_M")).thenReturn("MALE");
 		EmployeePayrollResponseDTO resu = rbvdR410.executeGetInformationPayroll(input);
 
 		assertEquals(0, context.getAdviceList().size());

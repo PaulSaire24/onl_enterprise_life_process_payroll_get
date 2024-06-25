@@ -25,7 +25,7 @@ public class RBVDR410Impl extends RBVDR410Abstract {
 			String queryName = "PISD.SELECT_PAYROLL_EMPLOYEEES";
 			List<Map<String, Object>> result = this.pisdR404.executeGetListASingleRow(queryName, arguments);
 			LOGGER.info("*** pisdR404 result query -> {}", result);
-			return MappeBean.mapResultPayroll(result);
+			return MappeBean.mapResultPayroll(result,this.applicationConfigurationService);
 		}catch (ParseException e){
 			LOGGER.info("*** RBVDR410Impl  executeGetInformationPayroll with Exception -> {}", e.getMessage());
 			return null;

@@ -1,5 +1,6 @@
 package com.bbva.rbvd.lib.r410.transform;
 
+import com.bbva.elara.configuration.manager.application.ApplicationConfigurationService;
 import com.bbva.rbvd.dto.payroll.dto.DescriptionDTO;
 import com.bbva.rbvd.dto.payroll.dto.PayrollEmployeeDTO;
 import com.bbva.rbvd.dto.payroll.dto.IdentityDocumentDTO;
@@ -30,11 +31,12 @@ public class MappeBean {
         statusMap.put("UAP", new String[]{"UNAPPROVED", "EMPLEADO EN VALIDACION"});
     }
 
-    public static EmployeePayrollResponseDTO mapResultPayroll (List<Map<String,Object>> mapList) throws ParseException {
+    public static EmployeePayrollResponseDTO mapResultPayroll (List<Map<String,Object>> mapList, ApplicationConfigurationService applicationConfigurationService) throws ParseException {
         EmployeePayrollResponseDTO response = new EmployeePayrollResponseDTO();
         response.setId((String) mapList.get(0).get("PAYROLL_ID"));
         DescriptionDTO status =  new DescriptionDTO();
         status.setId((String) mapList.get(0).get("MOVEMENT_STATUS"));
+        status.setDescription(applicationConfigurationService.getProperty((String) mapList.get(0).get("MOVEMENT_STATUS")));
         response.setStatus(status.getId()!=null?status:null);
         List<PayrollEmployeeDTO> listPayroll = new ArrayList<>();
 
@@ -46,7 +48,7 @@ public class MappeBean {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             payroll.setBirthDate(dateFormat.parse((String) map.get("EMPLOYEE_BIRTH_DATE")));
             payroll.setGender(new DescriptionDTO());
-            payroll.getGender().setId((String) map.get("EMPLOYEE_GENDER_TYPE"));
+            payroll.getGender().setId(applicationConfigurationService.getProperty("GENDER_ID_"+map.get("EMPLOYEE_GENDER_TYPE")));
             payroll.setPayrollStatus(setPayRollStatus(map.get("EMPLOYEE_STATUS_ID")));
             DescriptionDTO documentType = new DescriptionDTO();
             documentType.setId((String) map.get("EMPLOYEE_PERSONAL_TYPE"));
