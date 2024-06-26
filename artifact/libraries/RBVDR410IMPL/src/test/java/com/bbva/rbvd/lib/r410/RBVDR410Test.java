@@ -71,7 +71,7 @@ public class RBVDR410Test {
 		input.setQuotationId("1243455540");
 		Map<String,Object> mapResult = new HashMap<>();
 		mapResult.put("PAYROLL_ID","12455");
-		mapResult.put("MOVEMENT_STATUS","CR");
+		mapResult.put("MOVEMENT_STATUS","ST");
 		mapResult.put("EMPLOYEE_FIRST_NAME","PAUL");
 		mapResult.put("EMPLOYEE_FIRST_LAST_NAME","SAIRE");
 		mapResult.put("EMPLOYEE_SECOND_LAST_NAME","PAUCAR");
@@ -92,12 +92,15 @@ public class RBVDR410Test {
 		when(this.pisdr404.executeGetListASingleRow(anyString(),anyMap())).thenReturn(listResult);
 		when(this.applicationConfigurationService.getProperty("GENDER_ID_F")).thenReturn("FEMALE");
 		when(this.applicationConfigurationService.getProperty("GENDER_ID_M")).thenReturn("MALE");
+		when(this.applicationConfigurationService.getProperty("ST")).thenReturn("STARTED PAYROLL");
+		when(this.applicationConfigurationService.getProperty("L")).thenReturn("DNI");
+
 		EmployeePayrollResponseDTO resu = rbvdR410.executeGetInformationPayroll(input);
 
 		assertEquals(0, context.getAdviceList().size());
 		Assert.assertNotNull(resu);
 		assertEquals("12455",resu.getId());
-		assertEquals("CR",resu.getStatus().getId());
+		assertEquals("ST",resu.getStatus().getId());
 	}
 
 

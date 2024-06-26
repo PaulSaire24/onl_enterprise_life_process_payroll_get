@@ -35,12 +35,15 @@ public class MappeBean {
         EmployeePayrollResponseDTO response = new EmployeePayrollResponseDTO();
         response.setId((String) mapList.get(0).get("PAYROLL_ID"));
         DescriptionDTO status =  new DescriptionDTO();
-        status.setId((String) mapList.get(0).get("MOVEMENT_STATUS"));
-        status.setDescription(applicationConfigurationService.getProperty((String) mapList.get(0).get("MOVEMENT_STATUS")));
+        String statusId = (String) mapList.get(0).get("MOVEMENT_STATUS");
+        status.setId(statusId);
+        LOGGER.info("*** status description -> {}",applicationConfigurationService.getProperty(statusId));
+        status.setDescription(applicationConfigurationService.getProperty(statusId));
         response.setStatus(status.getId()!=null?status:null);
         List<PayrollEmployeeDTO> listPayroll = new ArrayList<>();
 
         for (Map<String,Object> map : mapList){
+            LOGGER.info("*** document type -> {}",applicationConfigurationService.getProperty((String) map.get("EMPLOYEE_PERSONAL_TYPE")));
             PayrollEmployeeDTO payroll = new PayrollEmployeeDTO();
             payroll.setFirstName((String) map.get("EMPLOYEE_FIRST_NAME"));
             payroll.setLastName((String) map.get("EMPLOYEE_FIRST_LAST_NAME"));
@@ -51,7 +54,7 @@ public class MappeBean {
             payroll.getGender().setId(applicationConfigurationService.getProperty("GENDER_ID_"+map.get("EMPLOYEE_GENDER_TYPE")));
             payroll.setPayrollStatus(setPayRollStatus(map.get("EMPLOYEE_STATUS_ID")));
             DescriptionDTO documentType = new DescriptionDTO();
-            documentType.setId((String) map.get("EMPLOYEE_PERSONAL_TYPE"));
+            documentType.setId(applicationConfigurationService.getProperty((String) map.get("EMPLOYEE_PERSONAL_TYPE")));
             IdentityDocumentDTO identityDocument = new IdentityDocumentDTO();
             identityDocument.setDocumentType(documentType);
             identityDocument.setDocumentNumber((String) map.get("EMPLOYEE_PERSONAL_ID"));
@@ -95,7 +98,7 @@ public class MappeBean {
 
     private static DescriptionDTO setPayRollStatus(Object status){
         if(status==null)return null;
-        String[] val = statusMap.get((String) status);
+        String[] val = statusMap.get(status);
         if(val==null)return null;
         DescriptionDTO statusPayRoll = new DescriptionDTO();
         statusPayRoll.setId((String) status);
