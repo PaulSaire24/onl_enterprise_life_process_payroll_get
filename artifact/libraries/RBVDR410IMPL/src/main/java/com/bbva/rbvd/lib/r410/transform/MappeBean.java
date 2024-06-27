@@ -1,12 +1,14 @@
 package com.bbva.rbvd.lib.r410.transform;
 
 import com.bbva.elara.configuration.manager.application.ApplicationConfigurationService;
-import com.bbva.rbvd.dto.payroll.dto.DescriptionDTO;
 import com.bbva.rbvd.dto.payroll.dto.PayrollEmployeeDTO;
+import com.bbva.rbvd.dto.payroll.dto.DescriptionDTO;
 import com.bbva.rbvd.dto.payroll.dto.IdentityDocumentDTO;
+import com.bbva.rbvd.dto.payroll.dto.ContactDTO;
 import com.bbva.rbvd.dto.payroll.dto.ContactDetailsDTO;
 import com.bbva.rbvd.dto.payroll.dto.SalaryAmountDTO;
-import com.bbva.rbvd.dto.payroll.dto.ContactDTO;
+import com.bbva.rbvd.dto.payroll.dto.StatusDTO;
+import com.bbva.rbvd.dto.payroll.dto.PayrollDetailsDTO;
 import com.bbva.rbvd.dto.payroll.process.EmployeePayrollResponseDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,6 +47,7 @@ public class MappeBean {
         for (Map<String,Object> map : mapList){
             LOGGER.info("*** document type -> {}",applicationConfigurationService.getProperty((String) map.get("EMPLOYEE_PERSONAL_TYPE")));
             PayrollEmployeeDTO payroll = new PayrollEmployeeDTO();
+            payroll.setEmployeeId((String) map.get("PAYROLL_EMPLOYEE_ID"));
             payroll.setFirstName((String) map.get("EMPLOYEE_FIRST_NAME"));
             payroll.setLastName((String) map.get("EMPLOYEE_FIRST_LAST_NAME"));
             payroll.setSecondLastName(map.get("EMPLOYEE_SECOND_LAST_NAME") != null? (String) map.get("EMPLOYEE_SECOND_LAST_NAME") : null);
@@ -73,6 +76,31 @@ public class MappeBean {
         return response;
     }
 
+    public static void mappObsPayroll(List<PayrollEmployeeDTO> employeeDTOList, List<Map<String,Object>> mapList){
+        List<PayrollDetailsDTO> payrollDetails = new ArrayList<>();
+        for (PayrollEmployeeDTO employeeDTO : employeeDTOList){
+            payrollDetails.clear();
+            for (Map<String,Object> map : mapList){
+                if(!employeeDTO.getEmployeeId().equals(map.get("PAYROLL_EMPLOYEE_ID"))){
+                    continue;
+                }
+                Object employeeIdObj = map.get("OBSERV_RESULT_PROCESS_DESC");
+                if(employeeIdObj == null){
+                    continue;
+                }
+                String[] lisObs = employeeIdObj.toString().split("\\|\\|");
+                if(lisObs.length != 2){
+                    continue;
+                }
+                PayrollDetailsDTO payrollDetail = new PayrollDetailsDTO();
+                payrollDetail.setCode(lisObs[0]);
+                payrollDetail.setName(lisObs[1]);
+                payrollDetails.add(payrollDetail);
+            }
+            employeeDTO.getPayrollStatus().setDetails(new ArrayList<>(payrollDetails));
+        }
+    }
+
     private static List<ContactDetailsDTO> setContac(Object phoneId, Object email){
         List<ContactDetailsDTO> contactList =  new ArrayList<>();
 
@@ -96,11 +124,11 @@ public class MappeBean {
         return contactList;
     }
 
-    private static DescriptionDTO setPayRollStatus(Object status){
+    private static StatusDTO setPayRollStatus(Object status){
         if(status==null)return null;
         String[] val = statusMap.get(status);
         if(val==null)return null;
-        DescriptionDTO statusPayRoll = new DescriptionDTO();
+        StatusDTO statusPayRoll = new StatusDTO();
         statusPayRoll.setId((String) status);
         statusPayRoll.setName(val[0]);
         statusPayRoll.setDescription(val[1]);

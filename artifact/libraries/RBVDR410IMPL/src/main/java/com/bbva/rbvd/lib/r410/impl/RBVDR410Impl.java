@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.bbva.rbvd.lib.r410.business.PayrollBusiness;
 
 public class RBVDR410Impl extends RBVDR410Abstract {
 
@@ -22,13 +23,17 @@ public class RBVDR410Impl extends RBVDR410Abstract {
 		try {
 			Map<String, Object> arguments = new HashMap<>();
 			arguments.put("QUOTATION_ID", input.getQuotationId());
-			String queryName = "PISD.SELECT_PAYROLL_EMPLOYEEES";
+			String queryName = "PISD.SELECT_PAYROLL_EMPLOYEES";
 			List<Map<String, Object>> result = this.pisdR404.executeGetListASingleRow(queryName, arguments);
 			LOGGER.info("*** pisdR404 result query -> {}", result);
-			return MappeBean.mapResultPayroll(result,this.applicationConfigurationService);
+			EmployeePayrollResponseDTO response = MappeBean.mapResultPayroll(result,this.applicationConfigurationService);
+			PayrollBusiness.getObsPayroll(response,this.pisdR404);
+			return response;
 		}catch (ParseException e){
 			LOGGER.info("*** RBVDR410Impl  executeGetInformationPayroll with Exception -> {}", e.getMessage());
 			return null;
 		}
 	}
+
+
 }
