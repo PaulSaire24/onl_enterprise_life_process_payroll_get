@@ -15,8 +15,13 @@ import java.util.stream.Collectors;
 
 public class PayrollBusiness {
 
+    private PISDR404 pisdr404;
+
+    public PayrollBusiness(PISDR404 pisdr404) {
+        this.pisdr404 = pisdr404;
+    }
     private static final Logger LOGGER = LoggerFactory.getLogger(PayrollBusiness.class);
-    public static void getObsPayroll(EmployeePayrollResponseDTO response,PISDR404 pisdr404) {
+    public void getObsPayroll(EmployeePayrollResponseDTO response) {
         List<PayrollEmployeeDTO> listPayroll = response.getPayroll();
         LOGGER.info("*** RBVDR410Impl  executeGetInformationPayroll listPayroll -> {}",listPayroll);
         List<String> employeeIds = listPayroll.stream().map(PayrollEmployeeDTO::getEmployeeId).collect(Collectors.toList());
