@@ -45,7 +45,7 @@
 					<list order="3" name="details" mandatory="0">
 						<dto order="1" name="Type" mandatory="0" package="com.bbva.rbvd.dto.payroll.dto.PayrollDetailsDTO" artifactId="RBVDC409">
 							<parameter order="1" name="code" mandatory="0" type="String" size="15"/>
-							<parameter order="2" name="name" mandatory="0" type="String" size="50"/>
+							<parameter order="2" name="name" mandatory="0" type="String" size="100"/>
 						</dto>
 					</list>
 				</dto>
