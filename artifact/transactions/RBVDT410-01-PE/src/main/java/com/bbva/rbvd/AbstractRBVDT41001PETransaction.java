@@ -3,7 +3,6 @@ package com.bbva.rbvd;
 import com.bbva.elara.transaction.AbstractTransaction;
 import com.bbva.rbvd.dto.payroll.dto.DescriptionDTO;
 import com.bbva.rbvd.dto.payroll.dto.PayrollEmployeeDTO;
-
 import java.util.List;
 
 /**
@@ -30,18 +29,23 @@ public abstract class AbstractRBVDT41001PETransaction extends AbstractTransactio
 	}
 
 	/**
-	 * Set value for StatusPayrollDTO output parameter data
+	 * Set value for String output parameter id
 	 */
-	//provide the setters for these threee parameters id, status, payroll
 	protected void setId(final String field){
 		this.addParameter("id", field);
 	}
 
+	/**
+	 * Set value for DescriptionDTO output parameter status
+	 */
 	protected void setStatus(final DescriptionDTO field){
 		this.addParameter("status", field);
 	}
+
+	/**
+	 * Set value for List<PayrollEmployeeDTO> output parameter payroll
+	 */
 	protected void setPayroll(final List<PayrollEmployeeDTO> field){
 		this.addParameter("payroll", field);
 	}
-
 }
