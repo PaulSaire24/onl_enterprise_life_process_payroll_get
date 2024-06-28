@@ -39,8 +39,7 @@ public class MappeBean {
         DescriptionDTO status =  new DescriptionDTO();
         String statusId = (String) mapList.get(0).get("MOVEMENT_STATUS");
         status.setId(statusId);
-        LOGGER.info("*** status description -> {}",applicationConfigurationService.getProperty(statusId));
-        status.setDescription(applicationConfigurationService.getProperty(statusId));
+        status.setName(applicationConfigurationService.getProperty(statusId));
         response.setStatus(status.getId()!=null?status:null);
         List<PayrollEmployeeDTO> listPayroll = new ArrayList<>();
 
