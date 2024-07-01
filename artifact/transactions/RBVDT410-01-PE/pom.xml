@@ -45,11 +45,6 @@
 		</dependency>
 		<!-- End test dependencies -->
 		<dependency>
-			<groupId>com.bbva.rbvd.dto.payrollupload</groupId>
-			<artifactId>RBVDC409</artifactId>
-			<version>0.1.1</version>
-		</dependency>
-		<dependency>
 			<groupId>com.bbva.rbvd</groupId>
 			<artifactId>RBVDR410</artifactId>
 			<version>0.1.2</version>
