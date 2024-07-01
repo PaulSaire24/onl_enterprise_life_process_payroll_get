@@ -44,7 +44,6 @@ public class MappeBean {
         List<PayrollEmployeeDTO> listPayroll = new ArrayList<>();
 
         for (Map<String,Object> map : mapList){
-            LOGGER.info("*** document type -> {}",applicationConfigurationService.getProperty((String) map.get("EMPLOYEE_PERSONAL_TYPE")));
             PayrollEmployeeDTO payroll = new PayrollEmployeeDTO();
             payroll.setEmployeeId((String) map.get("PAYROLL_EMPLOYEE_ID"));
             payroll.setFirstName((String) map.get("EMPLOYEE_FIRST_NAME"));

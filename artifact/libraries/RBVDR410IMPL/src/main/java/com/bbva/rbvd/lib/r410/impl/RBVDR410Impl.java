@@ -2,6 +2,7 @@ package com.bbva.rbvd.lib.r410.impl;
 
 import com.bbva.rbvd.dto.payroll.process.EmployeePayrollFilterDTO;
 import com.bbva.rbvd.dto.payroll.process.EmployeePayrollResponseDTO;
+import com.bbva.rbvd.lib.r410.repository.PayrollDao;
 import com.bbva.rbvd.lib.r410.transform.MappeBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,11 +25,11 @@ public class RBVDR410Impl extends RBVDR410Abstract {
 			Map<String, Object> arguments = new HashMap<>();
 			arguments.put("QUOTATION_ID", input.getQuotationId());
 			String queryName = "PISD.SELECT_PAYROLL_EMPLOYEES";
-			List<Map<String, Object>> result = this.pisdR404.executeGetListASingleRow(queryName, arguments);
+			PayrollDao payrollDao = new PayrollDao(this.pisdR404);
+			List<Map<String, Object>> result =  payrollDao.fetchDataAsMapList(queryName, arguments);
 			LOGGER.info("*** pisdR404 result query -> {}", result);
 			EmployeePayrollResponseDTO response = MappeBean.mapResultPayroll(result,this.applicationConfigurationService);
-			PayrollBusiness payrollBusiness = new PayrollBusiness(this.pisdR404);
-			payrollBusiness.getObsPayroll(response);
+			PayrollBusiness.getObsPayroll(response,payrollDao);
 			return response;
 		}catch (ParseException e){
 			LOGGER.info("*** RBVDR410Impl  executeGetInformationPayroll with Exception -> {}", e.getMessage());

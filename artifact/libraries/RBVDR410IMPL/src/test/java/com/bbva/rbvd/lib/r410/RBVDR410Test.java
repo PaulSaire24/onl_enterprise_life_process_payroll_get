@@ -5,9 +5,14 @@ import com.bbva.elara.domain.transaction.Context;
 import com.bbva.elara.domain.transaction.ThreadContext;
 
 import com.bbva.pisd.lib.r404.PISDR404;
+import com.bbva.rbvd.dto.payroll.dto.PayrollEmployeeDTO;
+import com.bbva.rbvd.dto.payroll.dto.StatusDTO;
 import com.bbva.rbvd.dto.payroll.process.EmployeePayrollFilterDTO;
 import com.bbva.rbvd.dto.payroll.process.EmployeePayrollResponseDTO;
+import com.bbva.rbvd.helper.MockDatabase;
+import com.bbva.rbvd.lib.r410.business.PayrollBusiness;
 import com.bbva.rbvd.lib.r410.impl.RBVDR410Impl;
+import com.bbva.rbvd.lib.r410.repository.PayrollDao;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,10 +25,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.aop.framework.Advised;
 import org.springframework.test.context.ContextConfiguration;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -48,7 +51,15 @@ public class RBVDR410Test {
 	private PISDR404 pisdr404;
 
 	@Mock
+	private PayrollDao payrollDao;
+
+	@InjectMocks
+	private PayrollBusiness payrollBusiness;
+
+	@Mock
 	ApplicationConfigurationService applicationConfigurationService;
+
+
 
 	@Before
 	public void setUp() throws Exception {
@@ -71,11 +82,11 @@ public class RBVDR410Test {
 	public void executeTestOK(){
 		EmployeePayrollFilterDTO input  = new EmployeePayrollFilterDTO();
 		input.setQuotationId("1243455540");
-		List<Map<String, Object>> listResult = getMapList();
+		List<Map<String, Object>> listResult = MockDatabase.getMapList();
 		Map<String, Object> arguments = new HashMap<>();
 		arguments.put("QUOTATION_ID", input.getQuotationId());
 
-		List<Map<String, Object>> listObs = getMaps();
+		List<Map<String, Object>> listObs = MockDatabase.getMaps();
 		Map<String, Object> argumentsObs = new HashMap<>();
 		List<String> listIds = Arrays.asList("12345","56789");
 		argumentsObs.put("EMPLOYEE_IDS", listIds);
@@ -95,59 +106,27 @@ public class RBVDR410Test {
 		assertEquals("ST",resu.getStatus().getId());
 	}
 
-	private static List<Map<String, Object>> getMaps() {
-		List<Map<String, Object>> listObs = new ArrayList<>();
-		Map<String, Object>	mapObs = new HashMap<>();
-		mapObs.put("PAYROLL_EMPLOYEE_ID","12345");
-		mapObs.put("OBSERV_RESULT_PROCESS_DESC","MANL CO000028||Se recomienda corregir apepat: JUAREZ para DNI: 72839101 del asegurado.");
-		Map<String, Object>	mapObs1 = new HashMap<>();
-		mapObs1.put("PAYROLL_EMPLOYEE_ID","12345");
-		mapObs1.put("OBSERV_RESULT_PROCESS_DESC","MANL CO000028||Se recomienda corregir apepat: JUAREZ para DNI: 72839101 del asegurado.");
-		listObs.add(mapObs);
-		listObs.add(mapObs1);
-		return listObs;
-	}
+	@Test
+	public void testGetObsPayroll() {
+		// Preparar datos de prueba
+		PayrollEmployeeDTO employee = new PayrollEmployeeDTO();
+		employee.setEmployeeId("123");
+		employee.setPayrollStatus(new StatusDTO());
+		List<PayrollEmployeeDTO> payroll = Arrays.asList(employee);
 
-	private static List<Map<String, Object>> getMapList() {
-		Map<String,Object> mapResult = new HashMap<>();
-		mapResult.put("PAYROLL_EMPLOYEE_ID","12345");
-		mapResult.put("PAYROLL_ID","12455");
-		mapResult.put("MOVEMENT_STATUS","ST");
-		mapResult.put("EMPLOYEE_FIRST_NAME","PAUL");
-		mapResult.put("EMPLOYEE_FIRST_LAST_NAME","SAIRE");
-		mapResult.put("EMPLOYEE_SECOND_LAST_NAME","PAUCAR");
-		mapResult.put("EMPLOYEE_BIRTH_DATE","2024-11-12");
-		mapResult.put("EMPLOYEE_GENDER_TYPE","F");
-		mapResult.put("EMPLOYEE_STATUS_ID","VAL");
-		mapResult.put("EMPLOYEE_PERSONAL_TYPE","L");
-		mapResult.put("EMPLOYEE_PERSONAL_ID","71960800");
-		mapResult.put("EMPLOYEE_EMAIL_NAME","psaire@gamil.com");
-		mapResult.put("EMPLOYEE_CELLPHONE_NUMBER_ID","960675837");
-		mapResult.put("JOB_POSITION_EE_START_DATE","2024-11-12");
-		mapResult.put("MONTH_PAYMENT_AMOUNT",new BigDecimal(1500));
-		mapResult.put("UPLOADED_STATUS_TYPE","MANL");
+		EmployeePayrollResponseDTO response = new EmployeePayrollResponseDTO();
+		response.setPayroll(payroll);
 
-		Map<String,Object> mapResult2 = new HashMap<>();
-		mapResult2.put("PAYROLL_EMPLOYEE_ID","56789");
-		mapResult2.put("PAYROLL_ID","12455");
-		mapResult2.put("MOVEMENT_STATUS","ST");
-		mapResult2.put("EMPLOYEE_FIRST_NAME","KYEV");
-		mapResult2.put("EMPLOYEE_FIRST_LAST_NAME","MENDEX");
-		mapResult2.put("EMPLOYEE_SECOND_LAST_NAME","RODRI");
-		mapResult2.put("EMPLOYEE_BIRTH_DATE","2024-11-12");
-		mapResult2.put("EMPLOYEE_GENDER_TYPE","F");
-		mapResult2.put("EMPLOYEE_STATUS_ID","VAL");
-		mapResult2.put("EMPLOYEE_PERSONAL_TYPE","L");
-		mapResult2.put("EMPLOYEE_PERSONAL_ID","71960800");
-		mapResult2.put("EMPLOYEE_EMAIL_NAME","psaire@gamil.com");
-		mapResult2.put("EMPLOYEE_CELLPHONE_NUMBER_ID","960675889");
-		mapResult2.put("JOB_POSITION_EE_START_DATE","2024-11-12");
-		mapResult2.put("MONTH_PAYMENT_AMOUNT",new BigDecimal(1690));
-		mapResult2.put("UPLOADED_STATUS_TYPE","MANL");
-		List<Map<String,Object>> listResult = new ArrayList<>();
-		listResult.add(mapResult);
-		listResult.add(mapResult2);
-		return listResult;
+
+		Map<String, Object> resultObs = new HashMap<>();
+		resultObs.put("EMPLOYEE_IDS", Arrays.asList("123"));
+
+		when(payrollDao.fetchDataAsMapList(anyString(), anyMap())).thenReturn(Arrays.asList(resultObs));
+
+		payrollBusiness.getObsPayroll(response, payrollDao);
+
+		// Verificar que los métodos se llamaron con los parámetros correctos
+		verify(payrollDao, times(1)).fetchDataAsMapList(anyString(), anyMap());
 	}
 
 
