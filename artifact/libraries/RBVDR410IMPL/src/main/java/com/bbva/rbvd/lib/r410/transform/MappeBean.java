@@ -16,11 +16,11 @@ import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Date;
 
 public class MappeBean {
     private static final Logger LOGGER = LoggerFactory.getLogger(MappeBean.class);
@@ -33,7 +33,7 @@ public class MappeBean {
         statusMap.put("UAP", new String[]{"UNAPPROVED", "EMPLEADO EN VALIDACION"});
     }
 
-    public static EmployeePayrollResponseDTO mapResultPayroll (List<Map<String,Object>> mapList, ApplicationConfigurationService applicationConfigurationService) throws ParseException {
+    public static EmployeePayrollResponseDTO mapResultPayroll (List<Map<String,Object>> mapList, ApplicationConfigurationService applicationConfigurationService) {
         EmployeePayrollResponseDTO response = new EmployeePayrollResponseDTO();
         response.setId((String) mapList.get(0).get("PAYROLL_ID"));
         DescriptionDTO status =  new DescriptionDTO();
@@ -49,8 +49,7 @@ public class MappeBean {
             payroll.setFirstName((String) map.get("EMPLOYEE_FIRST_NAME"));
             payroll.setLastName((String) map.get("EMPLOYEE_FIRST_LAST_NAME"));
             payroll.setSecondLastName(map.get("EMPLOYEE_SECOND_LAST_NAME") != null? (String) map.get("EMPLOYEE_SECOND_LAST_NAME") : null);
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            payroll.setBirthDate(dateFormat.parse((String) map.get("EMPLOYEE_BIRTH_DATE")));
+            payroll.setBirthDate((Date) map.get("EMPLOYEE_BIRTH_DATE"));
             payroll.setGender(new DescriptionDTO());
             payroll.getGender().setId(applicationConfigurationService.getProperty("GENDER_ID_"+map.get("EMPLOYEE_GENDER_TYPE")));
             payroll.setPayrollStatus(setPayRollStatus(map.get("EMPLOYEE_STATUS_ID")));
@@ -61,7 +60,7 @@ public class MappeBean {
             identityDocument.setDocumentNumber((String) map.get("EMPLOYEE_PERSONAL_ID"));
             payroll.setIdentityDocument(identityDocument);
             payroll.setContactDetails(setContac(map.get("EMPLOYEE_CELLPHONE_NUMBER_ID"),map.get("EMPLOYEE_EMAIL_NAME")));
-            payroll.setHireDate(dateFormat.parse((String) map.get("JOB_POSITION_EE_START_DATE")));
+            payroll.setHireDate((Date) map.get("JOB_POSITION_EE_START_DATE"));
             SalaryAmountDTO salary = new SalaryAmountDTO();
             salary.setAmount(((BigDecimal) map.get("MONTH_PAYMENT_AMOUNT")).doubleValue());
             salary.setCurrency("PEN");
