@@ -4,12 +4,12 @@
 	<parent>
 		<groupId>com.bbva.rbvd</groupId>
 		<artifactId>LIBRARIES-onl_enterprise_life_process_payroll_get</artifactId>
-		<version>0.1.5</version>
+		<version>0.1.6</version>
 	</parent>
 	<groupId>com.bbva.rbvd</groupId>
 	<artifactId>RBVDR410</artifactId>
 	<name>RBVDR410</name>
-	<version>0.1.5</version>
+	<version>0.1.6</version>
 	<packaging>bundle</packaging>
 	<description>lib to obtain payroll process</description>
 	<properties>
