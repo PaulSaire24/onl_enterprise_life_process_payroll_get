@@ -111,7 +111,7 @@ public class RBVDR410Test {
 		// Preparar datos de prueba
 		PayrollEmployeeDTO employee = new PayrollEmployeeDTO();
 		employee.setEmployeeId("123");
-		employee.setPayrollStatus(new StatusDTO());
+		employee.setPayRollStatus(new StatusDTO());
 		List<PayrollEmployeeDTO> payroll = Arrays.asList(employee);
 
 		EmployeePayrollResponseDTO response = new EmployeePayrollResponseDTO();

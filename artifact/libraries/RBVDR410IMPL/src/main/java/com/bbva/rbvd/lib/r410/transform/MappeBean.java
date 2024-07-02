@@ -51,7 +51,7 @@ public class MappeBean {
             payroll.setBirthDate((Date) map.get("EMPLOYEE_BIRTH_DATE"));
             payroll.setGender(new DescriptionDTO());
             payroll.getGender().setId(applicationConfigurationService.getProperty("GENDER_ID_"+map.get("EMPLOYEE_GENDER_TYPE")));
-            payroll.setPayrollStatus(setPayRollStatus(map.get("EMPLOYEE_STATUS_ID")));
+            payroll.setPayRollStatus(setPayRollStatus(map.get("EMPLOYEE_STATUS_ID")));
             DescriptionDTO documentType = new DescriptionDTO();
             documentType.setId(applicationConfigurationService.getProperty((String) map.get("EMPLOYEE_PERSONAL_TYPE")));
             IdentityDocumentDTO identityDocument = new IdentityDocumentDTO();
@@ -93,7 +93,7 @@ public class MappeBean {
                 payrollDetail.setName(lisObs[1]);
                 payrollDetails.add(payrollDetail);
             }
-            employeeDTO.getPayrollStatus().setDetails(new ArrayList<>(payrollDetails));
+            employeeDTO.getPayRollStatus().setDetails(new ArrayList<>(payrollDetails));
         }
     }
 
