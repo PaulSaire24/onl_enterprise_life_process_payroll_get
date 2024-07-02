@@ -49,6 +49,7 @@
 						</dto>
 					</list>
 				</dto>
+				<parameter order="11" name="loadType" mandatory="0" type="String" size="20"/>
 			</dto>
 		</list>
 	</paramsOut>
