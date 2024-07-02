@@ -70,6 +70,12 @@ public class RBVDT41001PETransactionTest {
 		when(rbvdr410.executeGetInformationPayroll(anyObject())).thenReturn(new EmployeePayrollResponseDTO());
 		this.transaction.execute();
 	}
+	@Test
+	public void testNull(){
+		Assert.assertNotNull(this.transaction);
+		when(rbvdr410.executeGetInformationPayroll(anyObject())).thenReturn(null);
+		this.transaction.execute();
+	}
 
 	// Add Parameter to Transaction
 	private void addParameter(final String parameter, final Object value) {
