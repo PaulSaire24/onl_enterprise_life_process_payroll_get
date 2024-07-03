@@ -56,7 +56,7 @@ public class MockDatabase {
         mapResult2.put("EMPLOYEE_CELLPHONE_NUMBER_ID","960675889");
         mapResult2.put("JOB_POSITION_EE_START_DATE",new Date());
         mapResult2.put("MONTH_PAYMENT_AMOUNT",new BigDecimal(1690));
-        mapResult2.put("UPLOADED_STATUS_TYPE","MANL");
+        mapResult2.put("UPLOADED_STATUS_TYPE",null);
         List<Map<String,Object>> listResult = new ArrayList<>();
         listResult.add(mapResult);
         listResult.add(mapResult2);

@@ -64,7 +64,7 @@ public class MappeBean {
             salary.setAmount(((BigDecimal) map.get("MONTH_PAYMENT_AMOUNT")).doubleValue());
             salary.setCurrency("PEN");
             payroll.setSalaryAmount(map.get("MONTH_PAYMENT_AMOUNT")!=null?salary:null);
-            payroll.setLoadType(map.get("UPLOADED_STATUS_TYPE")!=null? (String) map.get("UPLOADED_STATUS_TYPE"):null);
+            payroll.setLoadType(map.get("UPLOADED_STATUS_TYPE")!=null?applicationConfigurationService.getProperty((String) map.get("UPLOADED_STATUS_TYPE")):null);
             listPayroll.add(payroll);
         }
         response.setPayroll(listPayroll);
