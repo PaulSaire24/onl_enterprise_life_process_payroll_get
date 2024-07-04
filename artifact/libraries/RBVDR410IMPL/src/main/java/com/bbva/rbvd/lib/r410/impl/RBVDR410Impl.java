@@ -27,7 +27,7 @@ public class RBVDR410Impl extends RBVDR410Abstract {
 		PayrollDao payrollDao = new PayrollDao(this.pisdR404);
 		List<Map<String, Object>> result =  payrollDao.fetchDataAsMapList(queryName, arguments);
 		if(CollectionUtils.isEmpty(result)){
-			this.addAdviceWithDescription("BBVA14569875","No se encontraron registros para la consulta con la cotización envida.");
+			this.addAdviceWithDescription("BBVA14569875","No se encontraron registros para la consulta con la cotización enviada.");
 			return null;
 		}
 		LOGGER.info("*** pisdR404 result query -> {}", result);
