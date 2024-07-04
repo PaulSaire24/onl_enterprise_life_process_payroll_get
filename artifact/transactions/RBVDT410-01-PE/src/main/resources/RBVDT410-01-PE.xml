@@ -39,7 +39,7 @@
 				<dto order="9" name="gender" mandatory="1" package="com.bbva.rbvd.dto.payroll.dto.DescriptionDTO" artifactId="RBVDC409">
 					<parameter order="1" name="id" mandatory="1" type="String" size="10"/>
 				</dto>
-				<dto order="2" name="payRollStatus" mandatory="0" package="com.bbva.rbvd.dto.payroll.dto.StatusDTO" artifactId="RBVDC409">
+				<dto order="10" name="payRollStatus" mandatory="0" package="com.bbva.rbvd.dto.payroll.dto.StatusDTO" artifactId="RBVDC409">
 					<parameter order="1" name="id" mandatory="1" type="String" size="50"/>
 					<parameter order="2" name="name" mandatory="0" type="String" size="50"/>
 					<list order="3" name="details" mandatory="0">

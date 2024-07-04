@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import com.bbva.rbvd.lib.r410.business.PayrollBusiness;
+import org.springframework.util.CollectionUtils;
 
 public class RBVDR410Impl extends RBVDR410Abstract {
 
@@ -25,6 +26,10 @@ public class RBVDR410Impl extends RBVDR410Abstract {
 		String queryName = "PISD.SELECT_PAYROLL_EMPLOYEES";
 		PayrollDao payrollDao = new PayrollDao(this.pisdR404);
 		List<Map<String, Object>> result =  payrollDao.fetchDataAsMapList(queryName, arguments);
+		if(CollectionUtils.isEmpty(result)){
+			this.addAdviceWithDescription("BBVA14569875","No se encontraron registros para la consulta con la cotización envida.");
+			return null;
+		}
 		LOGGER.info("*** pisdR404 result query -> {}", result);
 		EmployeePayrollResponseDTO response = MappeBean.mapResultPayroll(result,this.applicationConfigurationService);
 		PayrollBusiness.getObsPayroll(response,payrollDao);

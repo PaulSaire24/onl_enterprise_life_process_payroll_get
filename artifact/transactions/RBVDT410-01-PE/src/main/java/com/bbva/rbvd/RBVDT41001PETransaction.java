@@ -34,7 +34,7 @@ public class RBVDT41001PETransaction extends AbstractRBVDT41001PETransaction {
 
 		EmployeePayrollResponseDTO response = rbvdR410.executeGetInformationPayroll(input);
 
-		if(response!=null && getAdviceList().isEmpty()){
+		if(response!=null && this.getAdviceList().isEmpty()){
 			this.setId(response.getId());
 			this.setStatus(response.getStatus());
 			this.setPayroll(response.getPayroll());

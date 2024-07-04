@@ -107,6 +107,23 @@ public class RBVDR410Test {
 	}
 
 	@Test
+	public void executeTestEmpty(){
+		EmployeePayrollFilterDTO input  = new EmployeePayrollFilterDTO();
+		input.setQuotationId("1243455540");
+		Map<String, Object> arguments = new HashMap<>();
+		arguments.put("QUOTATION_ID", input.getQuotationId());
+
+		when(this.pisdr404.executeGetListASingleRow("PISD.SELECT_PAYROLL_EMPLOYEES",arguments)).thenReturn(null);
+
+		EmployeePayrollResponseDTO resu = rbvdR410.executeGetInformationPayroll(input);
+
+		assertEquals(1, context.getAdviceList().size());
+		Assert.assertNull(resu);
+		// Verificar que los métodos se llamaron con los parámetros correctos
+		verify(pisdr404, times(1)).executeGetListASingleRow("PISD.SELECT_PAYROLL_EMPLOYEES",arguments);
+	}
+
+	@Test
 	public void testGetObsPayroll() {
 		// Preparar datos de prueba
 		PayrollEmployeeDTO employee = new PayrollEmployeeDTO();

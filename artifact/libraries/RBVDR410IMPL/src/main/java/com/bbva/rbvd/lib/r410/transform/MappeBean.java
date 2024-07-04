@@ -77,7 +77,7 @@ public class MappeBean {
         for (PayrollEmployeeDTO employeeDTO : employeeDTOList){
             payrollDetails.clear();
             for (Map<String,Object> map : mapList){
-                if(!employeeDTO.getEmployeeId().equals(map.get("PAYROLL_EMPLOYEE_ID"))){
+                if(map.get("AMENDMENT_ID")!=null || !employeeDTO.getEmployeeId().equals(map.get("PAYROLL_EMPLOYEE_ID"))){
                     continue;
                 }
                 Object employeeIdObj = map.get("OBSERV_RESULT_PROCESS_DESC");
